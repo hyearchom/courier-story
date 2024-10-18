@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://dpme8j6viiuye"]
+
+[ext_resource type="Script" path="res://propojeni/Statistiky.gd" id="1_kbta0"]
+
+[resource]
+script = ExtResource("1_kbta0")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://emdesc17gwhb"
-path="res://.godot/imported/bily_ctverec.svg-8fb205309f19546f4115ea58dffff87c.ctex"
+uid="uid://bccpqqnmg3gpi"
+path="res://.godot/imported/svetly_ctverec.svg-4cfba7d9bc473a97ab67e35d80bd4d96.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://bily_ctverec.svg"
-dest_files=["res://.godot/imported/bily_ctverec.svg-8fb205309f19546f4115ea58dffff87c.ctex"]
+source_file="res://media/svetly_ctverec.svg"
+dest_files=["res://.godot/imported/svetly_ctverec.svg-4cfba7d9bc473a97ab67e35d80bd4d96.ctex"]
 
 [params]
 

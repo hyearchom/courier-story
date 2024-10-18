@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c1k6nfe73v7ky"
-path="res://.godot/imported/silnice.png-db8a52aebe1b386f27321878b2cc7b05.ctex"
+uid="uid://c7pkoqnrqqtyh"
+path="res://.godot/imported/tmavy_ctverec.svg-3e219a9b1f6f7e5a42b1b9a172398b30.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://silnice.png"
-dest_files=["res://.godot/imported/silnice.png-db8a52aebe1b386f27321878b2cc7b05.ctex"]
+source_file="res://media/tmavy_ctverec.svg"
+dest_files=["res://.godot/imported/tmavy_ctverec.svg-3e219a9b1f6f7e5a42b1b9a172398b30.ctex"]
 
 [params]
 
@@ -32,3 +32,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=1.0
+editor/scale_with_editor_scale=false
+editor/convert_colors_with_editor_theme=false

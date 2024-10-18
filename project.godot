@@ -15,6 +15,15 @@ run/main_scene="res://hra.tscn"
 config/features=PackedStringArray("4.3", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[debug]
+
+gdscript/warnings/untyped_declaration=1
+gdscript/warnings/integer_division=0
+
+[global_group]
+
+hrac=""
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"

@@ -20,6 +20,7 @@ func _physics_process(delta: float) -> void:
 	zmena_zataceni(delta)
 	velocity += zrychleni *delta
 	move_and_slide()
+	#print(velocity.length())
 
 
 func zmena_zrychleni() -> void:
@@ -34,20 +35,20 @@ func zmena_zrychleni() -> void:
 	
 	odpor_prostredi()
 
-func zmena_zataceni(delta):
-	var smer_otoceni = 0
+func zmena_zataceni(delta: float) -> void:
+	var smer_otoceni: int = 0
 	if Input.is_action_pressed("ui_right"):
 		smer_otoceni += 1
 	if Input.is_action_pressed("ui_left"):
 		smer_otoceni -= 1
 	zaboceni = smer_otoceni *deg_to_rad(UHEL_ZABOCENI)
 	
-	var trakce = POMALA_TRAKCE if velocity.length() < RYCHLOST_SMYKU else RYCHLA_TRAKCE
-	var zadni_kolo = position - transform.x * ROZCHOD_KOL / 2.0
-	var predni_kolo = position + transform.x * ROZCHOD_KOL / 2.0
+	var trakce: float = POMALA_TRAKCE if velocity.length() < RYCHLOST_SMYKU else RYCHLA_TRAKCE
+	var zadni_kolo: Vector2 = position - transform.x * ROZCHOD_KOL / 2.0
+	var predni_kolo: Vector2 = position + transform.x * ROZCHOD_KOL / 2.0
 	zadni_kolo += velocity * delta
 	predni_kolo += velocity.rotated(zaboceni) * delta
-	var novy_smer = (predni_kolo - zadni_kolo).normalized()
+	var novy_smer: Vector2 = (predni_kolo - zadni_kolo).normalized()
 	
 	if urceni_smeru(novy_smer) > 0:
 		velocity = lerp(velocity, novy_smer *velocity.length(), trakce)
@@ -57,16 +58,16 @@ func zmena_zataceni(delta):
 	rotation = novy_smer.angle()
 	#printt(velocity, rotation, zadni_kolo, predni_kolo)
 
-func urceni_smeru(zacileni) -> float:
-	var orientace = round(zacileni.dot(velocity.normalized()))
+func urceni_smeru(zacileni:Vector2) -> int:
+	var orientace: int = round(zacileni.dot(velocity.normalized()))
 	return orientace if orientace != 0 else -1
 
 
-func odpor_prostredi():
+func odpor_prostredi() -> void:
 	if velocity.length() < 5:
 		velocity = Vector2.ZERO
-	var povrch = velocity *ODPOR_POVRCHU
-	var vitr = velocity * velocity.length() * ODPOR_VETRU
+	var povrch: Vector2 = velocity *ODPOR_POVRCHU
+	var vitr: Vector2 = velocity * velocity.length() * ODPOR_VETRU
 	if velocity.length() < 100:
 		povrch *= 10
 	zrychleni -= povrch +vitr

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b17f2btd7uycu"
-path="res://.godot/imported/atlas.png-7b6d701721d40511b9cfca52325841a7.ctex"
+uid="uid://c1k6nfe73v7ky"
+path="res://.godot/imported/silnice.png-9def0cd26ba095101f283376dcd0d623.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://atlas.png"
-dest_files=["res://.godot/imported/atlas.png-7b6d701721d40511b9cfca52325841a7.ctex"]
+source_file="res://media/silnice.png"
+dest_files=["res://.godot/imported/silnice.png-9def0cd26ba095101f283376dcd0d623.ctex"]
 
 [params]
 
