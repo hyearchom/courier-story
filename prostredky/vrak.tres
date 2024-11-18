@@ -1,0 +1,6 @@
+[gd_resource type="Resource" load_steps=2 format=3 uid="uid://c0eqiyl4ri4wu"]
+
+[ext_resource type="Script" path="res://prostredky/vrak.gd" id="1_83kns"]
+
+[resource]
+script = ExtResource("1_83kns")

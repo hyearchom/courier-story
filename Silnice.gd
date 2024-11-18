@@ -8,8 +8,8 @@ const SIRKA_MAPY := int(VELIKOST_MAPY.x/VELIKOST_BUNKY.x)
 const VYSKA_MAPY := int(VELIKOST_MAPY.y/VELIKOST_BUNKY.y)
 
 var mrizka: Array
-@onready var vozovka: TileMapLayer = $Vozovka
-@onready var domy: TileMapLayer = $Domy
+@onready var vozovka: TileMapLayer = $silnice
+@onready var domy: TileMapLayer = $trava
 
 enum Pole {
 	MESTO,
