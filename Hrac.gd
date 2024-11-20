@@ -18,6 +18,7 @@ var pomala_trakce: float
 
 var zaboceni: float
 var zrychleni: Vector2
+var teren: String
 
 func _ready() -> void:
 	nacist_vuz()
@@ -101,6 +102,7 @@ func odpor_prostredi() -> void:
 
 func _zmena_povrchu(telo: Node2D) -> void:
 	var oznaceni := telo.name
-	nacist_povrch(oznaceni)
-	print('Detekovan povrch: {0}'.format([oznaceni]))
-	print(odpor_povrchu)
+	if teren != oznaceni:
+		nacist_povrch(oznaceni)
+		teren = oznaceni
+		print('Detekovan povrch: {0}'.format([oznaceni]))

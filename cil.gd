@@ -2,6 +2,7 @@ extends Area2D
 
 var oznaceni: int
 var zacatek := true
+var trasa: int
 
 @export var statistiky: Resource
 
@@ -19,9 +20,9 @@ func _vyber_podoby() -> void:
 func _prejeti(telo: Node2D) -> void:
 	if telo.is_in_group('hrac'):
 		if zacatek:
-			statistiky.pridat_ukol(oznaceni)
+			statistiky.pridat_ukol(oznaceni, trasa)
 		else:
 			if not statistiky.overit_ukol(oznaceni):
 				return
-			statistiky.smazat_ukol(oznaceni)
+			statistiky.splnit_ukol(oznaceni)
 		queue_free()
