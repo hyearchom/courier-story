@@ -5,8 +5,12 @@ signal ukol_splnen
 signal finance_zmeneny
 
 var aktivni_ukoly := {}
-var finance: int
-
+var finance: int:
+	set(nova_hodnota):
+		#printt(finance, nova_hodnota)
+		finance_zmeneny.emit(nova_hodnota, nova_hodnota -finance)
+		finance = nova_hodnota
+	
 
 func pridat_ukol(oznaceni: int, trasa: int) -> void:
 	aktivni_ukoly[oznaceni] = trasa 
@@ -16,7 +20,7 @@ func pridat_ukol(oznaceni: int, trasa: int) -> void:
 func splnit_ukol(oznaceni: int) -> void:
 	var prijem: int = vypocet_prijmu(aktivni_ukoly[oznaceni])
 	finance += prijem
-	finance_zmeneny.emit(finance, prijem)
+	
 	smazat_ukol(oznaceni)
 
 

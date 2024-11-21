@@ -1,12 +1,13 @@
 extends Resource
 
-var parametry := {
+var jizda := {
 	'rozchod_kol': 40, 
 	'uhel_zaboceni': 15,
 	'vykon_motoru': 600,
 	'sila_brzdeni': 400,
 	'max_zpatecky': 300,
-	'odpor_vetru': 0.001 # upravit se systémem počasí
+	'odpor_vetru': 0.001, # upravit se systémem počasí
+	'spotreba': 1,
 }
 
 var povrch := {

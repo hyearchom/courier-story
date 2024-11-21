@@ -1,13 +1,12 @@
 extends CharacterBody2D
 
-@export var vuz: Resource
-
 # charakteristiky vozu
 var rozchod_kol: float 
 var uhel_zaboceni: float
 var vykon_motoru: float
 var sila_brzdeni: float
 var max_zpatecky: float
+var spotreba: float
 
 # charakteristiky prostredi
 var odpor_povrchu: float
@@ -19,6 +18,11 @@ var pomala_trakce: float
 var zaboceni: float
 var zrychleni: Vector2
 var teren: String
+
+@export var vuz: Resource
+@export var statistiky: Resource
+
+@onready var palivo: Timer = $Palivo
 
 func _ready() -> void:
 	nacist_vuz()
@@ -37,9 +41,9 @@ func _physics_process(delta: float) -> void:
 
 
 func nacist_vuz() -> void:
-	for parametr: String in vuz.parametry:
-		set(parametr, vuz.parametry[parametr])
-		#printt(parametr, vuz.parametry[parametr])
+	for parametr: String in vuz.jizda:
+		set(parametr, vuz.jizda[parametr])
+		#printt(parametr, vuz.jizda[parametr])
 
 
 func nacist_povrch(nazev:='silnice') -> void:
@@ -52,13 +56,40 @@ func zmena_zrychleni() -> void:
 	zrychleni = Vector2.ZERO
 	if Input.is_action_pressed("ui_up"):
 		zrychleni = transform.x * vykon_motoru
+		cerpani_paliva(true)
 	elif Input.is_action_pressed("ui_down"):
 		zrychleni = -transform.x * vykon_motoru
-	
+		cerpani_paliva(true)
+	elif Input.is_action_just_released("ui_up") \
+	or Input.is_action_just_released("ui_down"):
+		cerpani_paliva(false)
 	if Input.is_action_pressed("ui_accept"):
 		zrychleni -= velocity.normalized() *sila_brzdeni
-	
 	odpor_prostredi()
+
+
+func cerpani_paliva(stav:=true) -> void:
+	match stav:
+		true:
+			if palivo.is_stopped():
+				odecteni_ceny_paliva()
+				palivo.start()
+		false:
+			palivo.stop()
+
+
+func odecteni_ceny_paliva() -> void:
+	statistiky.finance -= spotreba
+
+
+func odpor_prostredi() -> void:
+	if velocity.length() < 5:
+		velocity = Vector2.ZERO
+	var povrch: Vector2 = velocity *odpor_povrchu
+	var vitr: Vector2 = velocity * velocity.length() * odpor_vetru
+	if velocity.length() < 100:
+		povrch *= 10
+	zrychleni -= povrch +vitr
 
 
 func zmena_zataceni(delta: float) -> void:
@@ -88,16 +119,6 @@ func zmena_zataceni(delta: float) -> void:
 func urceni_smeru(zacileni:Vector2) -> int:
 	var orientace: int = round(zacileni.dot(velocity.normalized()))
 	return orientace if orientace != 0 else -1
-
-
-func odpor_prostredi() -> void:
-	if velocity.length() < 5:
-		velocity = Vector2.ZERO
-	var povrch: Vector2 = velocity *odpor_povrchu
-	var vitr: Vector2 = velocity * velocity.length() * odpor_vetru
-	if velocity.length() < 100:
-		povrch *= 10
-	zrychleni -= povrch +vitr
 
 
 func _zmena_povrchu(telo: Node2D) -> void:
