@@ -20,7 +20,6 @@ func _ready() -> void:
 	vytvorit_mrizku()
 	vytvorit_cestu()
 	obsadit_pole()
-	#print(pozice_nahodneho_pole(vozovka))
 
 
 func vytvorit_mrizku() -> void:

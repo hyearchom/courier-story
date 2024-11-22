@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://fhu8qlib7p51"]
+[gd_scene load_steps=22 format=3 uid="uid://fhu8qlib7p51"]
 
 [ext_resource type="Script" path="res://Objekty.gd" id="1_3a6p2"]
 [ext_resource type="Texture2D" uid="uid://dbkeyreuf7hho" path="res://media/auto.png" id="1_862wv"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Silnice.gd" id="3_sej6e"]
 [ext_resource type="Texture2D" uid="uid://c7pkoqnrqqtyh" path="res://media/tmavy_ctverec.svg" id="3_wdn0s"]
 [ext_resource type="Resource" uid="uid://c0eqiyl4ri4wu" path="res://prostredky/vrak.tres" id="8_onu5c"]
+[ext_resource type="Script" path="res://Cas.gd" id="10_64lrb"]
 [ext_resource type="Script" path="res://zobrazeni/Finance.gd" id="10_gxhrf"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ne32w"]
@@ -51,6 +52,11 @@ height = 78.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1adoh"]
 size = Vector2(1, 1)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_01vqd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nwlbc"]
+bg_color = Color(0, 0.631401, 0.973228, 1)
+
 [sub_resource type="LabelSettings" id="LabelSettings_e8jk2"]
 font_size = 20
 
@@ -84,10 +90,11 @@ z_as_relative = false
 points = PackedVector2Array(0, 0)
 default_color = Color(1, 0, 0, 1)
 
-[node name="Hrac" type="CharacterBody2D" parent="Mapa" groups=["hrac"]]
+[node name="Hrac" type="CharacterBody2D" parent="Mapa" node_paths=PackedStringArray("vrstvy") groups=["hrac"]]
 script = ExtResource("1_c36nm")
 vuz = ExtResource("8_onu5c")
 statistiky = ExtResource("2_ymg7k")
+vrstvy = NodePath("../Vrstvy")
 metadata/_edit_group_ = true
 
 [node name="Telo" type="Sprite2D" parent="Mapa/Hrac"]
@@ -126,31 +133,56 @@ theme_override_constants/margin_top = 7
 theme_override_constants/margin_right = 7
 theme_override_constants/margin_bottom = 7
 
-[node name="PodSebou" type="VBoxContainer" parent="Zobrazeni/Okraje"]
+[node name="Cas" type="VBoxContainer" parent="Zobrazeni/Okraje"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+script = ExtResource("10_64lrb")
 
-[node name="Finance" type="HBoxContainer" parent="Zobrazeni/Okraje/PodSebou"]
+[node name="Den" type="Label" parent="Zobrazeni/Okraje/Cas"]
 layout_mode = 2
-alignment = 1
+text = "Day: 1"
+horizontal_alignment = 1
+
+[node name="Hodiny" type="ProgressBar" parent="Zobrazeni/Okraje/Cas"]
+custom_minimum_size = Vector2(200, 10)
+layout_mode = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_01vqd")
+theme_override_styles/fill = SubResource("StyleBoxFlat_nwlbc")
+max_value = 96.0
+step = 1.0
+value = 4.0
+show_percentage = false
+
+[node name="Interval" type="Timer" parent="Zobrazeni/Okraje/Cas"]
+wait_time = 2.0
+
+[node name="Finance" type="VBoxContainer" parent="Zobrazeni/Okraje"]
+layout_mode = 2
 script = ExtResource("10_gxhrf")
 statistiky = ExtResource("2_ymg7k")
 
-[node name="PodSebou" type="VBoxContainer" parent="Zobrazeni/Okraje/PodSebou/Finance"]
+[node name="VedleSebe" type="HBoxContainer" parent="Zobrazeni/Okraje/Finance"]
+layout_mode = 2
+alignment = 1
+
+[node name="PodSebou" type="VBoxContainer" parent="Zobrazeni/Okraje/Finance/VedleSebe"]
 layout_mode = 2
 
-[node name="Castka" type="Label" parent="Zobrazeni/Okraje/PodSebou/Finance/PodSebou"]
+[node name="Castka" type="Label" parent="Zobrazeni/Okraje/Finance/VedleSebe/PodSebou"]
 layout_mode = 2
 text = "0"
 label_settings = SubResource("LabelSettings_e8jk2")
 
-[node name="Navyseni" type="Label" parent="Zobrazeni/Okraje/PodSebou/Finance/PodSebou"]
+[node name="Navyseni" type="Label" parent="Zobrazeni/Okraje/Finance/VedleSebe/PodSebou"]
 layout_mode = 2
 text = "0"
 horizontal_alignment = 2
 
-[node name="Zmizeni" type="Timer" parent="Zobrazeni/Okraje/PodSebou/Finance/PodSebou/Navyseni"]
+[node name="Zmizeni" type="Timer" parent="Zobrazeni/Okraje/Finance/VedleSebe/PodSebou/Navyseni"]
 wait_time = 2.0
 one_shot = true
 
 [connection signal="timeout" from="Mapa/Hrac/Palivo" to="Mapa/Hrac" method="odecteni_ceny_paliva"]
 [connection signal="body_entered" from="Mapa/Hrac/Snimac" to="Mapa/Hrac" method="_zmena_povrchu"]
+[connection signal="timeout" from="Zobrazeni/Okraje/Cas/Interval" to="Zobrazeni/Okraje/Cas" method="interval_ubehl"]

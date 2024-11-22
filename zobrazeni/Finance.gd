@@ -1,9 +1,9 @@
-extends HBoxContainer
+extends Control
 
 @export var statistiky: Resource
-@onready var castka := $PodSebou/Castka
-@onready var navyseni := $PodSebou/Navyseni
-@onready var zmizeni := $PodSebou/Navyseni/Zmizeni
+@onready var castka := $VedleSebe/PodSebou/Castka
+@onready var navyseni := $VedleSebe/PodSebou/Navyseni
+@onready var zmizeni := $VedleSebe/PodSebou/Navyseni/Zmizeni
 
 
 func _ready() -> void:

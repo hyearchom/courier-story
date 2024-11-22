@@ -21,23 +21,14 @@ var teren: String
 
 @export var vuz: Resource
 @export var statistiky: Resource
+@export var vrstvy: Node
 
 @onready var palivo: Timer = $Palivo
 
 func _ready() -> void:
 	nacist_vuz()
 	nacist_povrch('silnice')
-
-
-func _physics_process(delta: float) -> void:
-	zmena_zrychleni()
-	zmena_zataceni(delta)
-	velocity += zrychleni *delta
-	move_and_slide()
-	
-	for i in get_slide_collision_count():
-		var srazka := get_slide_collision(i)
-		print("I collided with ", srazka.get_collider().name)
+	umistit_vozidlo()
 
 
 func nacist_vuz() -> void:
@@ -51,6 +42,20 @@ func nacist_povrch(nazev:='silnice') -> void:
 		set(parametr, vuz.povrch[nazev][parametr])
 		#printt(parametr, vuz.povrch[nazev][parametr])
 
+
+func umistit_vozidlo() -> void:
+	global_position = vrstvy.nahodna_pozice(vrstvy.vozovka)
+
+
+func _physics_process(delta: float) -> void:
+	zmena_zrychleni()
+	zmena_zataceni(delta)
+	velocity += zrychleni *delta
+	move_and_slide()
+	
+	for i in get_slide_collision_count():
+		var srazka := get_slide_collision(i)
+		print("I collided with ", srazka.get_collider().name)
 
 func zmena_zrychleni() -> void:
 	zrychleni = Vector2.ZERO
